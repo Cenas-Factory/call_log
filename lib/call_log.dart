@@ -30,7 +30,8 @@ class CallLog {
     String numbertype,
     String numberlabel,
     String cachedNumberType,
-    String cachedNumberLabel
+    String cachedNumberLabel,
+    String cachedName,
   }) async {
     var params = {
       "dateFrom": dateFrom?.toString(),
@@ -42,6 +43,7 @@ class CallLog {
       "type": type?.index == null ? null : (type.index + 1).toString(),
       "cachedNumberType": cachedNumberType,
       "cachedNumberLabel": cachedNumberLabel,
+      "cachedName": cachedName,
     };
     Iterable records = await _channel.invokeMethod('query', params);
     return records?.map((m) => CallLogEntry.fromMap(m));
@@ -58,7 +60,8 @@ class CallLogEntry {
     this.duration,
     this.timestamp,
     this.cachedNumberType,
-    this.cachedNumberLabel
+    this.cachedNumberLabel,
+    this.cachedName,
   });
 
   String name;
@@ -69,16 +72,20 @@ class CallLogEntry {
   int timestamp;
   String cachedNumberType;
   String cachedNumberLabel;
+  String cachedName;
 
   CallLogEntry.fromMap(Map m) {
     name = m['name'];
     number = m['number'];
     formattedNumber = m['formattedNumber'];
-    callType = m['callType'] < 1 || m['callType'] > 8 ? CallType.unknown : CallType.values[m['callType'] - 1];
+    callType = m['callType'] < 1 || m['callType'] > 8
+        ? CallType.unknown
+        : CallType.values[m['callType'] - 1];
     duration = m['duration'];
     timestamp = m['timestamp'];
     cachedNumberType = m['cachedNumberType'];
     cachedNumberLabel = m['cachedNumberLabel'];
+    cachedName = m['cachedName'];
   }
 }
 

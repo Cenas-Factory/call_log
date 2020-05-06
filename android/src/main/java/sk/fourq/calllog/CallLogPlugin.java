@@ -134,7 +134,8 @@ public class CallLogPlugin implements MethodCallHandler, PluginRegistry.RequestP
             CallLog.Calls.DURATION,
             CallLog.Calls.CACHED_NAME,
             CallLog.Calls.CACHED_NUMBER_TYPE,
-            CallLog.Calls.CACHED_NUMBER_LABEL
+            CallLog.Calls.CACHED_NUMBER_LABEL,
+            CallLog.Calls.CACHED_NAME,
     };
 
     private void queryLogs(String query) {
